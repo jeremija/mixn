@@ -1,0 +1,33 @@
+{
+  "name": "mixn",
+  "version": "1.0.0",
+  "description": "Provides easy extension of reducer functions",
+  "main": "src/lib.js",
+  "scripts": {
+    "pretest": "standard test/lib.js test/lib-test.js",
+    "test": "istanbul cover _mocha --recursive test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremija/mixn.git"
+  },
+  "keywords": [
+    "redux",
+    "reducer",
+    "extension",
+    "mixin",
+    "mixn"
+  ],
+  "author": "Jerko Steiner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeremija/mixn/issues"
+  },
+  "homepage": "https://github.com/jeremija/mixn#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.3.0",
+    "standard": "^10.0.2"
+  }
+}
