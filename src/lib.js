@@ -5,7 +5,7 @@
  * available reducers until a new state is obtained, thus it is recommended
  * to keep the state object immutable.
  * @param {Array.<Function>} reducers functions that accept `state, action`
- * arguments and return new state.S
+ * arguments and return new state.
  * @return {Function} a new reducer function
  */
 function mixn (_reducers) {
