@@ -22,7 +22,7 @@ function mixn (_reducers) {
   })
 
   function reduce (state, action) {
-    let newState
+    var newState
     reducers.some(function (fn) {
       newState = fn(state, action)
       return newState !== state
