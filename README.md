@@ -82,7 +82,7 @@ const { muxn, withDefaultState } = require('mixn')
 const handler = {
   ADD: (state, action) => state + action.payload
 }
-const reduce = withDefaultState(muxn(handler), 10)
+const reduce = withDefaultState(10)(muxn(handler))
 reduce()
 // 10
 ```

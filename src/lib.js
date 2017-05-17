@@ -76,13 +76,15 @@ function muxn (_handlers) {
  * @param {*} defaultState  state to set if it is `undefined`
  * @return {Function} wrapped reducer function
  */
-function withDefaultState(reduce, defaultState) {
-  return function reduceWithDefaultState(state, action) {
-    if (typeof state === 'undefined') {
-      state = defaultState
+function withDefaultState (defaultState) {
+  return function (reduce) {
+    return function reduceWithDefaultState (state, action) {
+      if (typeof state === 'undefined') {
+        state = defaultState
+      }
+      return reduce(state, action)
     }
-    return reduce(state, action)
-  };
+  }
 }
 
 module.exports = { mixn, muxn, withDefaultState }

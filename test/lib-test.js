@@ -106,7 +106,7 @@ describe('muxn', () => {
   describe('reducing', () => {
     let reduce, state
     beforeEach(() => {
-      reduce = withDefaultState(muxn(handler3, handler2, handler1), 0)
+      reduce = withDefaultState(0)(muxn(handler3, handler2, handler1))
       state = reduce()
       expect(state).to.equal(0)
     })
