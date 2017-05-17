@@ -9,7 +9,7 @@
  * @return {Function} a new reducer function
  */
 function mixn (_reducers) {
-  const reducers = Array.isArray(_reducers) ? _reducers : Array.from(arguments)
+  var reducers = Array.isArray(_reducers) ? _reducers : Array.from(arguments)
 
   if (reducers.length === 0) {
     throw new Error('The reducers array needs at least one function')
@@ -33,4 +33,56 @@ function mixn (_reducers) {
   return reduce
 }
 
-module.exports = mixn
+/**
+ * Muxes all handler objects and creates a reducer function. A handler object
+ * is a dictionary, which contains `action.type` as key and a reducer
+ * `function(state, action)` * as value. If two handlers each contain a reducer
+ * for a specific action, the last one in order takes precedence.
+ * @param {Array.<Object>} handlers handler objects
+ * @return {Function} a new reducer function
+ */
+function muxn (_handlers) {
+  var handlers = Array.isArray(_handlers) ? _handlers : Array.from(arguments)
+
+  if (handlers.length === 0) {
+    throw new Error('The handlers array needs at least one function')
+  }
+
+  var allHandlers = {}
+  handlers.forEach(function (handler) {
+    if (typeof handler !== 'object') {
+      throw new TypeError('All handlers must be an object')
+    }
+    Object.keys(handler).forEach(function (actionType) {
+      var handle = handler[actionType]
+      if (typeof handle !== 'function') {
+        throw new TypeError('Every handler value must be a function')
+      }
+      allHandlers[actionType] = handle
+    })
+  })
+
+  function reduce (state, action) {
+    var handle = allHandlers[action && action.type]
+    return handle ? handle(state, action) : state
+  }
+
+  return reduce
+}
+
+/**
+ * Sets a default state for a reducer in case it is `undefined`
+ * @param {Function} reduce reducer function
+ * @param {*} defaultState  state to set if it is `undefined`
+ * @return {Function} wrapped reducer function
+ */
+function withDefaultState(reduce, defaultState) {
+  return function reduceWithDefaultState(state, action) {
+    if (typeof state === 'undefined') {
+      state = defaultState
+    }
+    return reduce(state, action)
+  };
+}
+
+module.exports = { mixn, muxn, withDefaultState }
