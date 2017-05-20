@@ -87,4 +87,8 @@ function withDefaultState (defaultState) {
   }
 }
 
-module.exports = { mixn, muxn, withDefaultState }
+module.exports = {
+  mixn: mixn,
+  muxn: muxn,
+  withDefaultState: withDefaultState
+}
